@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Users can reliably track their daily habits and see their progress -- the core tracking loop (complete habit -> see streak -> feel momentum) must always work.
-**Current focus:** Phase 3: Component Extraction and Testing
+**Current focus:** Phase 4: Integration Tests and Quality Gates
 
 ## Current Position
 
-Phase: 3 of 5 (Component Extraction and Testing)
-Plan: 7 of 7 in current phase
-Status: Phase complete
-Last activity: 2026-02-16 -- Completed 03-07-PLAN.md (Guided Builder Hook Extraction - Gap Closure)
+Phase: 4 of 5 (Integration Tests and Quality Gates)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-16 -- Completed 04-01-PLAN.md (HabitsProvider Integration Tests and Multi-Component Workflow)
 
-Progress: [##########] 100%
+Progress: [#############----] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 13
 - Average duration: 5 minutes
-- Total execution time: 1.02 hours
+- Total execution time: 1.09 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [##########] 100%
 | 01-test-infrastructure-setup | 3 | 9 min | 3 min |
 | 02-utility-hook-extraction | 3 | 17 min | 6 min |
 | 03-component-extraction-testing | 6 | 39 min | 7 min |
+| 04-integration-tests-quality-gates | 1 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 7 min, 3 min, 14 min, 5 min, 6 min
-- Trend: Stable (12 plans)
+- Last 5 plans: 3 min, 14 min, 5 min, 6 min, 4 min
+- Trend: Stable (13 plans)
 
 *Updated after each plan completion*
 
@@ -51,6 +52,7 @@ Progress: [##########] 100%
 | 03-component-extraction-testing | 05 | 5 | 2 | 7 |
 | 03-component-extraction-testing | 06 | 4 | 2 | 5 |
 | 03-component-extraction-testing | 07 | 6 | 2 | 4 |
+| 04-integration-tests-quality-gates | 01 | 4 | 2 | 2 |
 
 ## Accumulated Context
 
@@ -94,6 +96,10 @@ Recent decisions affecting current work:
 - [Phase 03-07]: Extract all form state to useBuilderFormState hook (follows useFormFocus pattern)
 - [Phase 03-07]: Move STEPS constant to hook file for co-location with navigation logic
 - [Phase 03-07]: Use multi-line destructuring for large return objects (60+ properties)
+- [Phase 04-01]: Use TestHabitsHook helper component to expose useHabits() values via testIDs for comprehensive context testing
+- [Phase 04-01]: Create dedicated __tests__ directory for multi-component workflow tests (signals integration scope)
+- [Phase 04-01]: Use dual AsyncStorage verification in all persistence tests (UI state + persisted data)
+- [Phase 04-01]: Test app restart simulation via unmount/remount cycle to verify AsyncStorage hydration
 
 ### Pending Todos
 
@@ -108,5 +114,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 03-07-PLAN.md (Guided Builder Hook Extraction - Gap Closure) - Phase 3 Complete
+Stopped at: Completed 04-01-PLAN.md (HabitsProvider Integration Tests and Multi-Component Workflow)
 Resume file: None
