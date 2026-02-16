@@ -38,24 +38,24 @@ Plans:
 ### Phase 2: Utility & Hook Extraction
 **Goal**: Duplicated logic (frequency parsing, time formatting, date helpers, ID generation) lives in shared, tested modules and screens import from them instead of inlining
 **Depends on**: Phase 1
-**Requirements**: UTIL-01, UTIL-02, UTIL-03, UTIL-04, UTIL-05
+**Requirements**: UTIL-01, UTIL-02, UTIL-03, UTIL-04
+**Deferred to Phase 3**: UTIL-05 (custom hooks extraction) — per research recommendation, hook extraction deferred until component patterns in Phase 3 clarify which hooks are truly reusable. CONTEXT.md grants Claude discretion on hook timing.
 **Success Criteria** (what must be TRUE):
   1. Time formatting produces correct 12h/24h output for edge cases (midnight, noon, single-digit hours) verified by tests
   2. Frequency parsing in guided-builder and edit-habit both import from one shared module (no duplicated logic)
   3. Date helpers (getTodayStr, week calculations) handle week-start-day setting correctly across all days
-  4. Custom hooks extracted for reusable screen logic have tests covering their state transitions
-  5. No behavior changes visible to the user after extraction (existing app works identically)
+  4. No behavior changes visible to the user after extraction (existing app works identically)
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Extract formatTime and getTodayStr to lib/utils/ with TDD tests
+- [ ] 02-01-PLAN.md — Extract formatTime, getTodayStr, and getWeekStartDate to lib/utils/ with TDD tests
 - [ ] 02-02-PLAN.md — Extract buildCustomFrequency and parseCustomFrequency to lib/utils/ with TDD tests, deduplicate across 3 screens
 - [ ] 02-03-PLAN.md — Extract generateId to lib/utils/, clean up commented-out code, raise coverage floor
 
 ### Phase 3: Component Extraction & Testing
 **Goal**: Monolithic screens (index.tsx 1634 lines, guided-builder.tsx 1106 lines, edit-habit.tsx 967 lines) are decomposed into focused components under 300 lines each, all individually tested
 **Depends on**: Phase 2
-**Requirements**: COMP-01, COMP-02, COMP-03, COMP-04, COMP-05, COMP-06, COMP-07, COMP-08, COMP-09, COMP-10, COMP-11, COMP-12, COMP-13
+**Requirements**: COMP-01, COMP-02, COMP-03, COMP-04, COMP-05, COMP-06, COMP-07, COMP-08, COMP-09, COMP-10, COMP-11, COMP-12, COMP-13, UTIL-05
 **Success Criteria** (what must be TRUE):
   1. Today screen index.tsx is under 300 lines and imports DaySelector, ProgressRing, TodayWidget, IdentityBadge, HabitGridCard, HabitStackView, and all modals as separate files
   2. Each extracted component has a co-located .test.tsx file that tests rendering and key interactions

@@ -108,7 +108,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UTIL-02 | Phase 2 | Pending |
 | UTIL-03 | Phase 2 | Pending |
 | UTIL-04 | Phase 2 | Pending |
-| UTIL-05 | Phase 2 | Pending |
+| UTIL-05 | Phase 3 | Pending (deferred from Phase 2 per research: hook extraction deferred until component patterns clarify reuse) |
 | COMP-01 | Phase 3 | Pending |
 | COMP-02 | Phase 3 | Pending |
 | COMP-03 | Phase 3 | Pending |
