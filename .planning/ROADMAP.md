@@ -101,11 +101,11 @@ Plans:
   3. Habit creation flow navigates the guided builder from start to a saved habit appearing on Today screen
   4. Daily completion flow taps a habit checkbox and verifies streak count updates on screen
   5. Weekly review flow submits a review with ratings and confirms it saves
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- Maestro infrastructure: workspace config, AsyncStorage seed script, testID instrumentation across production components
+- [ ] 05-02-PLAN.md -- Write 3 Maestro E2E flows (habit creation, completion, weekly review) + npm orchestration scripts + human verification
 
 ## Progress
 
