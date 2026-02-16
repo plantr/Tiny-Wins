@@ -275,4 +275,92 @@ describe('useBuilderFormState', () => {
 
     expect(result.current.selectedColor).toBeDefined();
   });
+
+  it('handleCreate includes versions when twoMinVersion is set', () => {
+    const { result } = renderHook(() => useBuilderFormState(defaultProps));
+
+    act(() => {
+      result.current.setTitle('Morning run');
+      result.current.setIdentityAreaId('health');
+      result.current.setTwoMinVersion('Put on running shoes');
+      result.current.setStandardVersion('Run 1 mile');
+      result.current.setStretchVersion('Run 5 miles');
+    });
+
+    act(() => {
+      result.current.handleCreate();
+    });
+
+    expect(mockAddHabit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        versions: {
+          twoMin: 'Put on running shoes',
+          standard: 'Run 1 mile',
+          stretch: 'Run 5 miles',
+        },
+      })
+    );
+  });
+
+  it('handleCreate uses custom identity when identityAreaId is "custom"', () => {
+    const { result } = renderHook(() => useBuilderFormState(defaultProps));
+
+    act(() => {
+      result.current.setTitle('Morning run');
+      result.current.setIdentityAreaId('custom');
+      result.current.setCustomIdentity('Marathon runner');
+    });
+
+    act(() => {
+      result.current.handleCreate();
+    });
+
+    expect(mockAddHabit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        identityAreaId: 'Marathon runner',
+      })
+    );
+  });
+
+  it('handleCreate includes reminderTime when timeMode is specific', () => {
+    const { result } = renderHook(() => useBuilderFormState(defaultProps));
+
+    act(() => {
+      result.current.setTitle('Morning run');
+      result.current.setIdentityAreaId('health');
+      result.current.setIntentionBehaviour('Go for a run');
+      result.current.setTimeMode('specific');
+      result.current.setReminderHour('6');
+      result.current.setReminderMinute('30');
+      result.current.setReminderPeriod('AM');
+    });
+
+    act(() => {
+      result.current.handleCreate();
+    });
+
+    expect(mockAddHabit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        reminderTime: '6:30 AM',
+        implementationIntention: expect.objectContaining({
+          time: '6:30 AM',
+        }),
+      })
+    );
+  });
+
+  it('resolvedFrequency builds custom frequency when frequency is Custom', () => {
+    const { result } = renderHook(() => useBuilderFormState(defaultProps));
+
+    act(() => {
+      result.current.setFrequency('Custom');
+      result.current.setCustomInterval('3');
+      result.current.setCustomPeriod('weeks');
+      result.current.toggleDay('Mon');
+      result.current.toggleDay('Wed');
+      result.current.toggleDay('Fri');
+    });
+
+    expect(result.current.resolvedFrequency).toBe('Every 3 weeks on Mon, Wed, Fri');
+  });
 });

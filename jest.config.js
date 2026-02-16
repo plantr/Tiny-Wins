@@ -66,6 +66,12 @@ module.exports = {
       lines: 70,
       statements: 70,
     },
+    './lib/hooks/useBuilderFormState.ts': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
     // Shared components (Phase 3)
     './components/shared/TodayWidget.tsx': {
       branches: 70,

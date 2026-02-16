@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -11,29 +11,16 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import * as Haptics from "expo-haptics";
-import { router } from "expo-router";
 import { useTheme } from "@/lib/theme-context";
-import { useHabits, CueType } from "@/lib/habits-context";
+import { useHabits } from "@/lib/habits-context";
 import { useIdentity } from "@/lib/identity-context";
-import { buildCustomFrequency } from "@/lib/utils/frequency";
-import { useFormFocus } from "@/lib/hooks/useFormFocus";
-import { COLOR_OPTIONS } from "@/components/shared/constants";
+import { useBuilderFormState, STEPS } from "@/lib/hooks/useBuilderFormState";
 import { IdentityStep } from "@/components/habits/builder/IdentityStep";
 import { HabitStep } from "@/components/habits/builder/HabitStep";
 import { IntentionStep } from "@/components/habits/builder/IntentionStep";
 import { StackingStep } from "@/components/habits/builder/StackingStep";
 import { VersionsStep } from "@/components/habits/builder/VersionsStep";
 import { SummaryStep } from "@/components/habits/builder/SummaryStep";
-
-const STEPS = [
-  { id: "identity", title: "identity link", subtitle: "who do you want to become?" },
-  { id: "habit", title: "your habit", subtitle: "what will you do?" },
-  { id: "intention", title: "implementation intention", subtitle: "when and where?" },
-  { id: "stacking", title: "habit stacking", subtitle: "pair it with an existing routine" },
-  { id: "versions", title: "the 2-minute rule", subtitle: "start so easy you can't say no" },
-  { id: "summary", title: "your habit plan", subtitle: "review and create" },
-];
 
 export default function GuidedBuilderScreen() {
   const { colors } = useTheme();
@@ -43,104 +30,23 @@ export default function GuidedBuilderScreen() {
   const topPadding = Platform.OS === "web" ? 67 : 0;
   const bottomPadding = Platform.OS === "web" ? 34 : 0;
 
-  const [step, setStep] = useState(0);
-  const [identityAreaId, setIdentityAreaId] = useState(selectedAreaIds[0] || "");
-  const [customIdentity, setCustomIdentity] = useState("");
-  const [title, setTitle] = useState("");
-  const [icon, setIcon] = useState("fitness");
-  const [colorIdx, setColorIdx] = useState(0);
-  const [goal, setGoal] = useState("1");
-  const [unit, setUnit] = useState("times");
-  const [frequency, setFrequency] = useState("Daily");
-  const [customInterval, setCustomInterval] = useState("1");
-  const [customPeriod, setCustomPeriod] = useState<"days" | "weeks">("weeks");
-  const [customDays, setCustomDays] = useState<string[]>([]);
-
-  const toggleDay = (day: string) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setCustomDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
-  };
-
-  const resolvedFrequency = frequency === "Custom" ? buildCustomFrequency(customInterval, customPeriod, customDays) : frequency;
-  const [intentionBehaviour, setIntentionBehaviour] = useState("");
-  const [intentionTime, setIntentionTime] = useState("");
-  const [intentionLocation, setIntentionLocation] = useState("");
-  const [timeMode, setTimeMode] = useState<"any" | "specific">("any");
-  const [reminderHour, setReminderHour] = useState("7");
-  const [reminderMinute, setReminderMinute] = useState("00");
-  const [reminderPeriod, setReminderPeriod] = useState<"AM" | "PM">("AM");
-  const [stackAnchor, setStackAnchor] = useState("");
-  const [twoMinVersion, setTwoMinVersion] = useState("");
-  const [standardVersion, setStandardVersion] = useState("");
-  const [stretchVersion, setStretchVersion] = useState("");
-  const [cueType, setCueType] = useState<CueType>("time");
-
-  const { inputBorder, focusProps } = useFormFocus(colors.accent);
-
-  const selectedColor = COLOR_OPTIONS[colorIdx];
-  const currentStep = STEPS[step];
-  const progress = (step + 1) / STEPS.length;
-
-  const canProceed = () => {
-    if (step === 0) return identityAreaId !== "" || customIdentity.trim().length > 0;
-    if (step === 1) return title.trim().length > 0;
-    if (step === 2) return intentionBehaviour.trim().length > 0;
-    return true;
-  };
-
-  const handleNext = () => {
-    if (step < STEPS.length - 1) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      if (step === 1 && !standardVersion) {
-        setStandardVersion(title.trim());
-      }
-      if (step === 1 && !intentionBehaviour) {
-        setIntentionBehaviour(title.trim());
-      }
-      setStep(step + 1);
-    }
-  };
-
-  const handleBack = () => {
-    if (step > 0) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setStep(step - 1);
-    } else {
-      router.back();
-    }
-  };
-
-  const handleCreate = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    addHabit({
-      title: title.trim(),
-      icon,
-      iconColor: selectedColor.color,
-      gradientColors: selectedColor.gradient,
-      goal: parseInt(goal) || 1,
-      unit,
-      frequency: resolvedFrequency,
-      identityAreaId: identityAreaId === "custom" ? customIdentity.trim() : (identityAreaId || undefined),
-      implementationIntention: intentionBehaviour ? {
-        behaviour: intentionBehaviour,
-        time: timeMode === "specific" ? `${reminderHour}:${reminderMinute} ${reminderPeriod}` : intentionTime,
-        location: intentionLocation,
-      } : undefined,
-      reminderTime: timeMode === "specific" ? `${reminderHour}:${reminderMinute} ${reminderPeriod}` : undefined,
-      stackAnchor: stackAnchor || undefined,
-      versions: twoMinVersion ? {
-        twoMin: twoMinVersion,
-        standard: standardVersion || title.trim(),
-        stretch: stretchVersion || undefined,
-      } : undefined,
-      currentVersion: "twoMin",
-      cueType,
-      isGuided: true,
-    });
-    router.back();
-  };
+  const {
+    step, currentStep, progress,
+    identityAreaId, setIdentityAreaId, customIdentity, setCustomIdentity,
+    title, setTitle, icon, setIcon, colorIdx, setColorIdx,
+    goal, setGoal, unit, setUnit,
+    frequency, setFrequency, customInterval, setCustomInterval,
+    customPeriod, setCustomPeriod, customDays, toggleDay,
+    intentionBehaviour, setIntentionBehaviour, intentionTime, setIntentionTime,
+    intentionLocation, setIntentionLocation,
+    timeMode, setTimeMode, reminderHour, setReminderHour,
+    reminderMinute, setReminderMinute, reminderPeriod, setReminderPeriod,
+    stackAnchor, setStackAnchor,
+    twoMinVersion, setTwoMinVersion, standardVersion, setStandardVersion,
+    stretchVersion, setStretchVersion, cueType, setCueType,
+    selectedColor, resolvedFrequency, inputBorder, focusProps,
+    canProceed, handleNext, handleBack, handleCreate,
+  } = useBuilderFormState({ selectedAreaIds, habits, addHabit, accentColor: colors.accent });
 
   const renderStepContent = () => {
     const commonProps = { colors, selectedColor, inputBorder, focusProps };
