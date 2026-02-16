@@ -20,13 +20,15 @@ module.exports = {
   // 2. Global floor raised incrementally (2% -> 70% by Phase 4)
   // This approach enforces 70% on tested files while building toward global 70%
   // Global floor set conservatively to catch catastrophic regressions without blocking current work
+  // Phase 3 raised global floor from 2-6% to 15-17% (actual coverage: 17-24%)
   coverageThreshold: {
     global: {
-      branches: 2,
-      functions: 3,
-      lines: 6,
-      statements: 6,
+      branches: 15,
+      functions: 15,
+      lines: 17,
+      statements: 17,
     },
+    // Utilities (Phase 2)
     './lib/test-utils.tsx': {
       branches: 70,
       functions: 70,
@@ -52,6 +54,102 @@ module.exports = {
       statements: 70,
     },
     './lib/utils/id.ts': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    // Hooks (Phase 3)
+    './lib/hooks/useFormFocus.ts': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    // Shared components (Phase 3)
+    './components/shared/TodayWidget.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/shared/IdentityBadge.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    // Habit components (Phase 3)
+    './components/habits/DaySelector.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/habits/HabitGridCard.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/habits/HabitStackView.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    // Builder step components (Phase 3)
+    './components/habits/builder/IdentityStep.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/habits/builder/HabitStep.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/habits/builder/SummaryStep.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    // Modals (Phase 3)
+    './components/modals/ConfirmationModal.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/modals/EvidenceModal.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/modals/AddHabitChoiceModal.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/modals/RemindersModal.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    // Screens (Phase 3)
+    './app/guided-builder.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './app/edit-habit.tsx': {
       branches: 70,
       functions: 70,
       lines: 70,
