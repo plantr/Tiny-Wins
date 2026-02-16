@@ -62,12 +62,15 @@ Plans:
   3. Guided builder is split into focused step components that each handle one builder step
   4. Edit habit screen imports shared frequency/time components rather than defining its own
   5. App launches and all user flows (habit creation, completion, evidence logging, review) work identically to before extraction
-**Plans**: TBD
+**Plans**: 6 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-- [ ] 03-03: TBD
+- [ ] 03-01-PLAN.md — Extract shared constants + guided-builder step components + reduce to orchestrator
+- [ ] 03-02-PLAN.md — Extract index.tsx presentational + feature components (TodayWidget, IdentityBadge, DaySelector, HabitGridCard, HabitStackView) with tests
+- [ ] 03-03-PLAN.md — Write tests for guided-builder step components + orchestrator integration test
+- [ ] 03-04-PLAN.md — Extract index.tsx modals (EvidenceModal, AddHabitChoiceModal, RemindersModal, ConfirmationModal) + reduce to orchestrator
+- [ ] 03-05-PLAN.md — Extract edit-habit form components + reduce to orchestrator + tests
+- [ ] 03-06-PLAN.md — Extract useFormFocus hook + update coverage thresholds + final verification
 
 ### Phase 4: Integration Tests & Quality Gates
 **Goal**: Context providers are tested with AsyncStorage persistence, multi-component workflows are verified, and coverage threshold is raised to 80%
@@ -110,7 +113,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Test Infrastructure Setup | 3/3 | Complete | 2026-02-16 |
 | 2. Utility & Hook Extraction | 0/3 | Planned | - |
-| 3. Component Extraction & Testing | 0/TBD | Not started | - |
+| 3. Component Extraction & Testing | 0/6 | Planned | - |
 | 4. Integration Tests & Quality Gates | 0/TBD | Not started | - |
 | 5. E2E Testing with Maestro | 0/TBD | Not started | - |
 
