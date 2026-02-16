@@ -51,6 +51,12 @@ module.exports = {
       lines: 70,
       statements: 70,
     },
+    './lib/utils/id.ts': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
   },
   coverageReporters: ['text', 'lcov', 'html'],
   testMatch: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],

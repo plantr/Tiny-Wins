@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, ReactNode } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getTodayStr } from "@/lib/utils/date";
+import { generateId } from "@/lib/utils/id";
 
 export interface ImplementationIntention {
   behaviour: string;
@@ -93,9 +94,10 @@ const REVIEWS_KEY = "tinywins_reviews";
 //   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 // }
 
-function generateId() {
-  return Date.now().toString() + Math.random().toString(36).substr(2, 9);
-}
+// EXTRACTED to @/lib/utils/id.ts
+// function generateId() {
+//   return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+// }
 
 const DEFAULT_HABITS: Habit[] = [];
 
