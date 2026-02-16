@@ -120,21 +120,6 @@ export function HabitsProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const persistHabits = useCallback((updated: Habit[]) => {
-    setHabits(updated);
-    AsyncStorage.setItem(HABITS_KEY, JSON.stringify(updated));
-  }, []);
-
-  const persistLogs = useCallback((updated: HabitLog[]) => {
-    setLogs(updated);
-    AsyncStorage.setItem(LOGS_KEY, JSON.stringify(updated));
-  }, []);
-
-  const persistReviews = useCallback((updated: ReviewLog[]) => {
-    setReviews(updated);
-    AsyncStorage.setItem(REVIEWS_KEY, JSON.stringify(updated));
-  }, []);
-
   const addHabit = useCallback((input: Omit<Habit, "id" | "current" | "streak" | "bestStreak" | "weekData" | "createdAt">) => {
     setHabits((prev) => {
       const newHabit: Habit = {

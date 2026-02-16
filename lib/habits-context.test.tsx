@@ -126,6 +126,26 @@ describe('HabitsProvider Integration Tests', () => {
     jest.useRealTimers();
   });
 
+  describe('useHabits guard', () => {
+    it('throws when used outside HabitsProvider', () => {
+      // Suppress React error boundary console output
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+      function BadComponent() {
+        useHabits();
+        return null;
+      }
+
+      // Use RNTL render WITHOUT the custom wrapper (no providers)
+      const RNTLRender = require('@testing-library/react-native').render;
+      expect(() => RNTLRender(<BadComponent />)).toThrow(
+        'useHabits must be used within a HabitsProvider'
+      );
+
+      consoleSpy.mockRestore();
+    });
+  });
+
   describe('Hydration tests', () => {
     it('starts with empty habits when no storage data', async () => {
       render(<TestHabitsHook />);
