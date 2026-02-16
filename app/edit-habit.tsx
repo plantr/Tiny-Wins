@@ -17,6 +17,7 @@ import { useTheme } from "@/lib/theme-context";
 import { useHabits } from "@/lib/habits-context";
 import { IDENTITY_AREAS } from "@/lib/identity-context";
 import { buildCustomFrequency, parseCustomFrequency } from "@/lib/utils/frequency";
+import { useFormFocus } from "@/lib/hooks/useFormFocus";
 import { COLOR_OPTIONS } from "@/components/shared/constants";
 import ConfirmationModal from "@/components/modals/ConfirmationModal";
 import HabitPreviewCard from "@/components/habits/HabitPreviewCard";
@@ -42,8 +43,9 @@ export default function EditHabitScreen() {
     if (["Daily", "Weekdays", "Weekends", "3x per week"].includes(f)) return f;
     return "Custom";
   });
-  const [focusedField, setFocusedField] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const { inputBorder, focusProps } = useFormFocus(colors.accent);
 
   const initCustom = parseCustomFrequency(
     !["Daily", "Weekdays", "Weekends", "3x per week"].includes(habit?.frequency ?? "Daily")
@@ -85,8 +87,6 @@ export default function EditHabitScreen() {
   const [stretchVersion, setStretchVersion] = useState(habit?.versions?.stretch ?? "");
   const selectedColor = COLOR_OPTIONS[selectedColorIdx] || COLOR_OPTIONS[0];
   const canSave = title.trim().length > 0 && parseInt(goal) > 0;
-  const inputBorder = (field: string) => focusedField === field ? { borderColor: colors.accent } : {};
-  const focusProps = (field: string) => ({ onFocus: () => setFocusedField(field), onBlur: () => setFocusedField(null) });
 
   const handleSave = () => {
     if (!canSave || !habit) return;

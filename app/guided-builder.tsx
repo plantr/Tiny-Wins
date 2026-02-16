@@ -17,6 +17,7 @@ import { useTheme } from "@/lib/theme-context";
 import { useHabits, CueType } from "@/lib/habits-context";
 import { useIdentity } from "@/lib/identity-context";
 import { buildCustomFrequency } from "@/lib/utils/frequency";
+import { useFormFocus } from "@/lib/hooks/useFormFocus";
 import { COLOR_OPTIONS } from "@/components/shared/constants";
 import { IdentityStep } from "@/components/habits/builder/IdentityStep";
 import { HabitStep } from "@/components/habits/builder/HabitStep";
@@ -75,18 +76,12 @@ export default function GuidedBuilderScreen() {
   const [standardVersion, setStandardVersion] = useState("");
   const [stretchVersion, setStretchVersion] = useState("");
   const [cueType, setCueType] = useState<CueType>("time");
-  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const { inputBorder, focusProps } = useFormFocus(colors.accent);
 
   const selectedColor = COLOR_OPTIONS[colorIdx];
   const currentStep = STEPS[step];
   const progress = (step + 1) / STEPS.length;
-
-  const inputBorder = (field: string) =>
-    focusedField === field ? { borderColor: colors.accent } : {};
-  const focusProps = (field: string) => ({
-    onFocus: () => setFocusedField(field),
-    onBlur: () => setFocusedField(null),
-  });
 
   const canProceed = () => {
     if (step === 0) return identityAreaId !== "" || customIdentity.trim().length > 0;
