@@ -76,29 +76,6 @@ export default function EditHabitScreen() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // EXTRACTED to @/lib/utils/frequency.ts
-  // const DAYS_LIST = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-  // EXTRACTED to @/lib/utils/frequency.ts
-  // const parseCustomFrequency = (f: string) => {
-  //   let interval = "1";
-  //   let period: "days" | "weeks" = "weeks";
-  //   let days: string[] = [];
-  //   if (f.startsWith("Every ")) {
-  //     const parts = f.replace("Every ", "").split(" ");
-  //     interval = parts[0] || "1";
-  //     if (parts[1]?.startsWith("day")) period = "days";
-  //     else period = "weeks";
-  //     const onIdx = f.indexOf(" on ");
-  //     if (onIdx !== -1) {
-  //       days = f.substring(onIdx + 4).split(", ").map((d) => d.trim()).filter(Boolean);
-  //     }
-  //   } else if (f.startsWith("Weekly on ")) {
-  //     days = f.replace("Weekly on ", "").split(", ").map((d) => d.trim()).filter(Boolean);
-  //   }
-  //   return { interval, period, days };
-  // };
-
   const initCustom = parseCustomFrequency(
     !["Daily", "Weekdays", "Weekends", "3x per week"].includes(habit?.frequency ?? "Daily")
       ? (habit?.frequency ?? "")
@@ -114,18 +91,6 @@ export default function EditHabitScreen() {
       prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
   };
-
-  // EXTRACTED to @/lib/utils/frequency.ts
-  // const buildCustomFrequency = () => {
-  //   const n = parseInt(customInterval) || 1;
-  //   if (customPeriod === "weeks" && customDays.length > 0) {
-  //     const sorted = DAYS_LIST.filter((d) => customDays.includes(d));
-  //     if (n === 1) return `Weekly on ${sorted.join(", ")}`;
-  //     return `Every ${n} weeks on ${sorted.join(", ")}`;
-  //   }
-  //   if (n === 1) return customPeriod === "days" ? "Daily" : "Weekly";
-  //   return `Every ${n} ${customPeriod}`;
-  // };
 
   const resolvedFrequency = selectedFrequency === "Custom" ? buildCustomFrequency(customInterval, customPeriod, customDays) : selectedFrequency;
 

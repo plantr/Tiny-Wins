@@ -88,17 +88,6 @@ const HABITS_KEY = "tinywins_habits";
 const LOGS_KEY = "tinywins_logs";
 const REVIEWS_KEY = "tinywins_reviews";
 
-// EXTRACTED to @/lib/utils/date.ts
-// function getTodayStr() {
-//   const d = new Date();
-//   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-// }
-
-// EXTRACTED to @/lib/utils/id.ts
-// function generateId() {
-//   return Date.now().toString() + Math.random().toString(36).substr(2, 9);
-// }
-
 const DEFAULT_HABITS: Habit[] = [];
 
 const HabitsContext = createContext<HabitsContextValue | null>(null);

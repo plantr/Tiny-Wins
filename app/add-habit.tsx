@@ -66,27 +66,12 @@ export default function AddHabitScreen() {
   const [stackAnchor, setStackAnchor] = useState("");
   const [showStacking, setShowStacking] = useState(false);
 
-  // EXTRACTED to @/lib/utils/frequency.ts
-  // const DAYS_LIST = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
   const toggleDay = (day: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setCustomDays((prev) =>
       prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
   };
-
-  // EXTRACTED to @/lib/utils/frequency.ts
-  // const buildCustomFrequency = () => {
-  //   const n = parseInt(customInterval) || 1;
-  //   if (customPeriod === "weeks" && customDays.length > 0) {
-  //     const sorted = DAYS_LIST.filter((d) => customDays.includes(d));
-  //     if (n === 1) return `Weekly on ${sorted.join(", ")}`;
-  //     return `Every ${n} weeks on ${sorted.join(", ")}`;
-  //   }
-  //   if (n === 1) return customPeriod === "days" ? "Daily" : "Weekly";
-  //   return `Every ${n} ${customPeriod}`;
-  // };
 
   const resolvedFrequency = selectedFrequency === "Custom" ? buildCustomFrequency(customInterval, customPeriod, customDays) : selectedFrequency;
 

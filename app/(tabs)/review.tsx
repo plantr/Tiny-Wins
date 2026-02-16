@@ -24,15 +24,6 @@ const FOUR_LAWS = [
   { key: "satisfying" as const, label: "Make it Satisfying", icon: "star", color: "#FFD600", tip: "Track your habits. Never miss twice. Use reward substitution." },
 ];
 
-// EXTRACTED to @/lib/utils/date.ts
-// function getWeekStart() {
-//   const now = new Date();
-//   const day = now.getDay();
-//   const diff = now.getDate() - day + (day === 0 ? -6 : 1);
-//   const monday = new Date(now.setDate(diff));
-//   return `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, "0")}-${String(monday.getDate()).padStart(2, "0")}`;
-// }
-
 export default function ReviewScreen() {
   const insets = useSafeAreaInsets();
   const topPadding = Platform.OS === "web" ? 67 : 0;

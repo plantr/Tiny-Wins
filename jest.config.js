@@ -22,10 +22,10 @@ module.exports = {
   // Global floor set conservatively to catch catastrophic regressions without blocking current work
   coverageThreshold: {
     global: {
-      branches: 2,
-      functions: 3,
-      lines: 6,
-      statements: 6,
+      branches: 4,
+      functions: 6,
+      lines: 9,
+      statements: 9,
     },
     './lib/test-utils.tsx': {
       branches: 70,

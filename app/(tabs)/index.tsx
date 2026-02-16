@@ -51,12 +51,6 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-// EXTRACTED to @/lib/utils/date.ts
-// function getTodayStr() {
-//   const d = new Date();
-//   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-// }
-
 function TodayWidget() {
   const { colors } = useTheme();
   const { habits, logs } = useHabits();
@@ -994,15 +988,6 @@ function ReminderHabitRow({ habit, hours }: { habit: Habit; hours: { label: stri
     </View>
   );
 }
-
-// EXTRACTED to @/lib/utils/time.ts
-// function formatTime(time24: string): string {
-//   const [hStr, mStr] = time24.split(":");
-//   const h = parseInt(hStr, 10);
-//   const ampm = h < 12 ? "am" : "pm";
-//   const h12 = h % 12 === 0 ? 12 : h % 12;
-//   return `${h12}:${mStr} ${ampm}`;
-// }
 
 export default function TodayScreen() {
   const insets = useSafeAreaInsets();
