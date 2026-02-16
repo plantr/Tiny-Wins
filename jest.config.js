@@ -74,9 +74,8 @@ module.exports = {
       statements: 70,
     },
     // Providers (Phase 4) -- 80% threshold
-    // Target: 80% branches -- needs additional tests (current: 77.41%)
     './lib/habits-context.tsx': {
-      branches: 75,
+      branches: 80,
       functions: 80,
       lines: 80,
       statements: 80,
