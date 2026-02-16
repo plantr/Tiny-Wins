@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 ## Current Position
 
 Phase: 3 of 5 (Component Extraction and Testing)
-Plan: 4 of 6 in current phase
+Plan: 5 of 6 in current phase
 Status: In progress
-Last activity: 2026-02-16 -- Completed 03-04-PLAN.md (Edit Habit Component Extraction)
+Last activity: 2026-02-16 -- Completed 03-05-PLAN.md (Today Screen Modal Extraction)
 
-Progress: [########..] 75%
+Progress: [#########.] 83%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: 5 minutes
-- Total execution time: 0.82 hours
+- Total execution time: 0.90 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [########..] 75%
 |-------|-------|-------|----------|
 | 01-test-infrastructure-setup | 3 | 9 min | 3 min |
 | 02-utility-hook-extraction | 3 | 17 min | 6 min |
-| 03-component-extraction-testing | 3 | 24 min | 8 min |
+| 03-component-extraction-testing | 4 | 29 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 8 min, 5 min, 4 min, 7 min, 3 min, 14 min
-- Trend: Stable (9 plans)
+- Last 5 plans: 5 min, 4 min, 7 min, 3 min, 14 min
+- Trend: Stable (10 plans)
 
 *Updated after each plan completion*
 
@@ -48,6 +48,7 @@ Progress: [########..] 75%
 | 03-component-extraction-testing | 01 | 7 | 2 | 8 |
 | 03-component-extraction-testing | 03 | 3 | 2 | 4 |
 | 03-component-extraction-testing | 04 | 14 | 2 | 8 |
+| 03-component-extraction-testing | 05 | 5 | 2 | 7 |
 
 ## Accumulated Context
 
@@ -82,6 +83,9 @@ Recent decisions affecting current work:
 - [Phase 03-04]: Create ConfirmationModal as reusable component for delete (edit-habit) and uncomplete (index.tsx)
 - [Phase 03-04]: Use parent-controlled form state pattern for EditHabitForm (orchestrator owns useState)
 - [Phase 03-04]: Simplify EditHabitForm tests to smoke test due to test environment limitations with complex forms
+- [Phase 03-05]: Use parent-controlled modal visibility state (orchestrator pattern)
+- [Phase 03-05]: Replace inline uncomplete confirmation with ConfirmationModal from Plan 04
+- [Phase 03-05]: Include ReminderHabitRow sub-component inside RemindersModal (only used there)
 
 ### Pending Todos
 
@@ -96,5 +100,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 03-04-PLAN.md (Edit Habit Component Extraction)
+Stopped at: Completed 03-05-PLAN.md (Today Screen Modal Extraction)
 Resume file: None
