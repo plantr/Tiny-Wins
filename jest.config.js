@@ -33,6 +33,18 @@ module.exports = {
       lines: 70,
       statements: 70,
     },
+    './lib/utils/time.ts': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './lib/utils/frequency.ts': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
   },
   coverageReporters: ['text', 'lcov', 'html'],
   testMatch: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
