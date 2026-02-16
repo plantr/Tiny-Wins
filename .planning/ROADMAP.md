@@ -45,11 +45,12 @@ Plans:
   3. Date helpers (getTodayStr, week calculations) handle week-start-day setting correctly across all days
   4. Custom hooks extracted for reusable screen logic have tests covering their state transitions
   5. No behavior changes visible to the user after extraction (existing app works identically)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Extract formatTime and getTodayStr to lib/utils/ with TDD tests
+- [ ] 02-02-PLAN.md — Extract buildCustomFrequency and parseCustomFrequency to lib/utils/ with TDD tests, deduplicate across 3 screens
+- [ ] 02-03-PLAN.md — Extract generateId to lib/utils/, clean up commented-out code, raise coverage floor
 
 ### Phase 3: Component Extraction & Testing
 **Goal**: Monolithic screens (index.tsx 1634 lines, guided-builder.tsx 1106 lines, edit-habit.tsx 967 lines) are decomposed into focused components under 300 lines each, all individually tested
@@ -107,8 +108,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Test Infrastructure Setup | 2/3 | Gap closure planned | - |
-| 2. Utility & Hook Extraction | 0/TBD | Not started | - |
+| 1. Test Infrastructure Setup | 3/3 | Complete | 2026-02-16 |
+| 2. Utility & Hook Extraction | 0/3 | Planned | - |
 | 3. Component Extraction & Testing | 0/TBD | Not started | - |
 | 4. Integration Tests & Quality Gates | 0/TBD | Not started | - |
 | 5. E2E Testing with Maestro | 0/TBD | Not started | - |
