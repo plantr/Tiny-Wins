@@ -29,6 +29,7 @@ import { useTheme, WEEK_START_INDEX } from "@/lib/theme-context";
 import { useHabits, Habit } from "@/lib/habits-context";
 import { useIdentity, IDENTITY_AREAS } from "@/lib/identity-context";
 import { formatTime } from "@/lib/utils/time";
+import { getTodayStr } from "@/lib/utils/date";
 import { usePremium } from "@/lib/premium-context";
 
 const CARD_GAP = 12;
@@ -50,10 +51,11 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-function getTodayStr() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
+// EXTRACTED to @/lib/utils/date.ts
+// function getTodayStr() {
+//   const d = new Date();
+//   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+// }
 
 function TodayWidget() {
   const { colors } = useTheme();
