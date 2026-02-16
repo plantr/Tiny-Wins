@@ -62,7 +62,7 @@ Plans:
   3. Guided builder is split into focused step components that each handle one builder step
   4. Edit habit screen imports shared frequency/time components rather than defining its own
   5. App launches and all user flows (habit creation, completion, evidence logging, review) work identically to before extraction
-**Plans**: 6 plans
+**Plans**: 7 plans
 
 Plans:
 - [ ] 03-01-PLAN.md — Extract shared constants + guided-builder step components + reduce to orchestrator
@@ -71,6 +71,7 @@ Plans:
 - [ ] 03-04-PLAN.md — Extract index.tsx modals (EvidenceModal, AddHabitChoiceModal, RemindersModal, ConfirmationModal) + reduce to orchestrator
 - [ ] 03-05-PLAN.md — Extract edit-habit form components + reduce to orchestrator + tests
 - [ ] 03-06-PLAN.md — Extract useFormFocus hook + update coverage thresholds + final verification
+- [ ] 03-07-PLAN.md — Gap closure: extract useBuilderFormState hook to reduce guided-builder.tsx under 300 lines
 
 ### Phase 4: Integration Tests & Quality Gates
 **Goal**: Context providers are tested with AsyncStorage persistence, multi-component workflows are verified, and coverage threshold is raised to 80%
