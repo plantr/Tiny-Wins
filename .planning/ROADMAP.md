@@ -28,11 +28,12 @@ Take a habit tracking app with three monolithic screen components and zero test 
   3. AsyncStorage operations in tests read/write correctly and are isolated between test cases (no bleed)
   4. Coverage report generates and enforces 70% threshold (fails CI if under)
   5. A smoke test renders a real app component, interacts with it, and asserts observable behavior
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
 - [ ] 01-01-PLAN.md — Jest + RNTL installation, configuration, and comprehensive native module mocks
 - [ ] 01-02-PLAN.md — Custom render wrapper with all 4 context providers and Settings screen smoke test
+- [ ] 01-03-PLAN.md — Gap closure: raise coverage threshold to 70% with per-path enforcement
 
 ### Phase 2: Utility & Hook Extraction
 **Goal**: Duplicated logic (frequency parsing, time formatting, date helpers, ID generation) lives in shared, tested modules and screens import from them instead of inlining
@@ -106,7 +107,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Test Infrastructure Setup | 0/2 | Planning complete | - |
+| 1. Test Infrastructure Setup | 2/3 | Gap closure planned | - |
 | 2. Utility & Hook Extraction | 0/TBD | Not started | - |
 | 3. Component Extraction & Testing | 0/TBD | Not started | - |
 | 4. Integration Tests & Quality Gates | 0/TBD | Not started | - |
