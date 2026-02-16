@@ -15,13 +15,23 @@ module.exports = {
     '!**/server/**',
     '!**/shared/**',
   ],
-  // Raise to 70% by Phase 4 per TINF-06 requirement
+  // Two-tier threshold strategy:
+  // 1. Per-path 70% on files with tests (enforced now, expanded each phase)
+  // 2. Global floor raised incrementally (2% -> 70% by Phase 4)
+  // This approach enforces 70% on tested files while building toward global 70%
+  // Global floor set conservatively to catch catastrophic regressions without blocking current work
   coverageThreshold: {
     global: {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
+      branches: 2,
+      functions: 3,
+      lines: 6,
+      statements: 6,
+    },
+    './lib/test-utils.tsx': {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
     },
   },
   coverageReporters: ['text', 'lcov', 'html'],
