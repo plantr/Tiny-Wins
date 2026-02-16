@@ -17,8 +17,14 @@ export function buildCustomFrequency(
   period: "days" | "weeks",
   days: string[]
 ): string {
-  // Stub implementation - tests should fail
-  return '';
+  const n = parseInt(interval) || 1;
+  if (period === "weeks" && days.length > 0) {
+    const sorted = DAYS_LIST.filter((d) => days.includes(d));
+    if (n === 1) return `Weekly on ${sorted.join(", ")}`;
+    return `Every ${n} weeks on ${sorted.join(", ")}`;
+  }
+  if (n === 1) return period === "days" ? "Daily" : "Weekly";
+  return `Every ${n} ${period}`;
 }
 
 /**
@@ -33,6 +39,20 @@ export function parseCustomFrequency(f: string): {
   period: "days" | "weeks";
   days: string[];
 } {
-  // Stub implementation - tests should fail
-  return { interval: '1', period: 'weeks', days: [] };
+  let interval = "1";
+  let period: "days" | "weeks" = "weeks";
+  let days: string[] = [];
+  if (f.startsWith("Every ")) {
+    const parts = f.replace("Every ", "").split(" ");
+    interval = parts[0] || "1";
+    if (parts[1]?.startsWith("day")) period = "days";
+    else period = "weeks";
+    const onIdx = f.indexOf(" on ");
+    if (onIdx !== -1) {
+      days = f.substring(onIdx + 4).split(", ").map((d) => d.trim()).filter(Boolean);
+    }
+  } else if (f.startsWith("Weekly on ")) {
+    days = f.replace("Weekly on ", "").split(", ").map((d) => d.trim()).filter(Boolean);
+  }
+  return { interval, period, days };
 }
