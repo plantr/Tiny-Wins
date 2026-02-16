@@ -83,11 +83,12 @@ Plans:
   3. Integration test exercises habit completion workflow end-to-end: complete habit -> streak increments -> evidence modal appears -> log persists
   4. PremiumProvider tests verify the 10-habit free tier limit blocks creation correctly
   5. Coverage threshold is 80% and `npx jest` fails if any file drops below it
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md — HabitsProvider CRUD + persistence integration tests (TDD)
+- [ ] 04-02-PLAN.md — ThemeProvider, IdentityProvider, PremiumProvider integration tests (TDD)
+- [ ] 04-03-PLAN.md — Coverage threshold enforcement (80% per-path on providers, raise global floor, fix Phase 3 failures)
 
 ### Phase 5: E2E Testing with Maestro
 **Goal**: Critical user journeys are verified end-to-end on a running app via Maestro flows
