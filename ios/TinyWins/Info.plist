@@ -27,8 +27,8 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
-          <string>com.myapp</string>
+          <string>tinywins</string>
+          <string>com.tinywins.habit</string>
         </array>
       </dict>
       <dict>
