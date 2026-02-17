@@ -4,14 +4,24 @@ appId: com.myapp
 # Tests writing a weekly review: navigating to Review tab, filling form, submitting.
 # Pre-condition: Seed data has habits and logs but no reviews (reviews array is empty).
 
-- launchApp
+- launchApp:
+    clearState: false
+- openLink: "exp+tiny-wins://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081"
 
 # Wait for Today screen to load
 - assertVisible:
     id: "today-screen-title"
 
+# Let app fully initialise after reload
+- waitForAnimationToEnd:
+    timeout: 3000
+
 # Navigate to Review tab
 - tapOn: "Review"
+
+# Let tab switch animation settle
+- waitForAnimationToEnd:
+    timeout: 2000
 
 # Wait for review screen to load
 - assertVisible:

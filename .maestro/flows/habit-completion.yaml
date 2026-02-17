@@ -4,7 +4,9 @@ appId: com.myapp
 # Tests tapping a pre-seeded habit card to complete it.
 # Pre-condition: Seed data has "Morning meditation" (id: e2e-habit-1) with streak 3.
 
-- launchApp
+- launchApp:
+    clearState: false
+- openLink: "exp+tiny-wins://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081"
 
 # Wait for Today screen to load
 - assertVisible:
@@ -12,11 +14,37 @@ appId: com.myapp
 
 - takeScreenshot: habit-completion-01-before
 
-# Tap the pre-seeded habit card
+# Scroll to the habit card (may be below fold after habit-creation adds content)
+- scrollUntilVisible:
+    element:
+      id: "habit-card-e2e-habit-1"
+    direction: DOWN
+
+# Nudge content up so the card clears the tab bar
+- swipe:
+    direction: UP
+    duration: 300
+
+# Let scroll and card entry animations settle before tapping
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Tap the checkmark button on the pre-seeded habit card
 - tapOn:
-    id: "habit-card-e2e-habit-1"
+    id: "habit-check-e2e-habit-1"
+    retryTapIfNoChange: false
+
+# Let the modal slide animation complete
+- waitForAnimationToEnd:
+    timeout: 2000
 
 # Wait for evidence modal to appear
+- assertVisible:
+    id: "evidence-note-input"
+
+# Dismiss keyboard so action buttons are visible
+- hideKeyboard
+
 - assertVisible:
     id: "evidence-skip-button"
 
