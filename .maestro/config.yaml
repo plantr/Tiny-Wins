@@ -1,0 +1,8 @@
+flows:
+  - 'flows/*'
+executionOrder:
+  continueOnFailure: false
+  flowsOrder:
+    - habit-creation.yaml
+    - habit-completion.yaml
+    - weekly-review.yaml
