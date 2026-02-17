@@ -59,6 +59,7 @@ export function IntentionStep({
       <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>I will...</Text>
       <View style={[styles.inputWrap, { backgroundColor: colors.surfaceLight }, inputBorder("behaviour")]}>
         <TextInput
+          testID="builder-intention-behaviour"
           style={[styles.textInput, { color: colors.text }]}
           placeholder={`e.g. ${title || "meditate for 10 minutes"}`}
           placeholderTextColor={colors.textMuted}
@@ -174,6 +175,7 @@ export function IntentionStep({
       <Text style={[styles.fieldLabel, { color: colors.textSecondary, marginTop: 16 }]}>in...</Text>
       <View style={[styles.inputWrap, { backgroundColor: colors.surfaceLight }, inputBorder("location")]}>
         <TextInput
+          testID="builder-intention-location"
           style={[styles.textInput, { color: colors.text }]}
           placeholder="e.g. my bedroom, at the park"
           placeholderTextColor={colors.textMuted}

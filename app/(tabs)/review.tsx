@@ -91,6 +91,7 @@ export default function ReviewScreen() {
 
         {!existingReview && (
           <Pressable
+            testID="review-write-button"
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
               setShowReviewModal(true);
@@ -108,12 +109,12 @@ export default function ReviewScreen() {
           </Pressable>
         )}
 
-        <View style={[styles.scorecardWrap, { backgroundColor: colors.surface }]}>
+        <View testID="review-scorecard" style={[styles.scorecardWrap, { backgroundColor: colors.surface }]}>
           <Text style={[styles.scorecardTitle, { color: colors.text }]}>this week's scorecard</Text>
           <View style={styles.scorecardStats}>
             <View style={styles.scoreStat}>
               <Ionicons name="checkmark-circle" size={20} color={colors.accentCyan} />
-              <Text style={[styles.scoreValue, { color: colors.text }]}>{completedThisWeek}</Text>
+              <Text testID="review-completed-count" style={[styles.scoreValue, { color: colors.text }]}>{completedThisWeek}</Text>
               <Text style={[styles.scoreLabel, { color: colors.textMuted }]}>completed</Text>
             </View>
             <View style={[styles.scoreDivider, { backgroundColor: colors.cardBorder }]} />
@@ -173,7 +174,7 @@ export default function ReviewScreen() {
         </View>
 
         {reviews.length > 0 && (
-          <View style={styles.pastSection}>
+          <View testID="review-history" style={styles.pastSection}>
             <Text style={[styles.sectionTitle, { color: colors.text }]}>review history</Text>
             {reviews.slice().reverse().slice(0, 4).map((review) => (
               <View key={review.id} style={[styles.pastCard, { backgroundColor: colors.surface }]}>
@@ -202,13 +203,14 @@ export default function ReviewScreen() {
           <View style={[modalStyles.sheet, { backgroundColor: colors.surface }]}>
             <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
               <View style={modalStyles.handle} />
-              <Text style={[modalStyles.title, { color: colors.text }]}>weekly review</Text>
+              <Text testID="review-modal-title" style={[modalStyles.title, { color: colors.text }]}>weekly review</Text>
               <Text style={[modalStyles.subtitle, { color: colors.textSecondary }]}>
                 Week of {weekStart}
               </Text>
 
               <Text style={[modalStyles.label, { color: colors.textSecondary }]}>what worked this week?</Text>
               <TextInput
+                testID="review-what-worked-input"
                 style={[modalStyles.input, { backgroundColor: colors.surfaceLight, color: colors.text }]}
                 placeholder="e.g. Morning routine was consistent..."
                 placeholderTextColor={colors.textMuted}
@@ -220,6 +222,7 @@ export default function ReviewScreen() {
 
               <Text style={[modalStyles.label, { color: colors.textSecondary }]}>what didn't work?</Text>
               <TextInput
+                testID="review-what-didnt-input"
                 style={[modalStyles.input, { backgroundColor: colors.surfaceLight, color: colors.text }]}
                 placeholder="e.g. Skipped reading after work..."
                 placeholderTextColor={colors.textMuted}
@@ -234,6 +237,7 @@ export default function ReviewScreen() {
                 {FOUR_LAWS.map((law) => (
                   <Pressable
                     key={law.key}
+                    testID={`review-law-${law.key}`}
                     onPress={() => {
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                       setSelectedLaw(law.key);
@@ -254,12 +258,13 @@ export default function ReviewScreen() {
 
               <View style={modalStyles.actions}>
                 <Pressable
+                  testID="review-cancel-button"
                   onPress={() => setShowReviewModal(false)}
                   style={[modalStyles.cancelBtn, { backgroundColor: colors.surfaceLight }]}
                 >
                   <Text style={[modalStyles.cancelText, { color: colors.textSecondary }]}>Cancel</Text>
                 </Pressable>
-                <Pressable onPress={handleSubmitReview} style={modalStyles.submitBtn}>
+                <Pressable testID="review-submit-button" onPress={handleSubmitReview} style={modalStyles.submitBtn}>
                   <LinearGradient
                     colors={[colors.accentPurple, colors.accent]}
                     start={{ x: 0, y: 0 }}

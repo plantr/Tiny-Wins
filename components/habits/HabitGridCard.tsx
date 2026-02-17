@@ -73,6 +73,7 @@ export function HabitGridCard({
   return (
     <Animated.View style={[cardStyles.wrapper, animatedStyle]}>
       <Pressable
+        testID={`habit-card-${habit.id}`}
         onPress={() => {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           router.push({ pathname: "/habit/[id]", params: { id: habit.id } });
@@ -94,7 +95,7 @@ export function HabitGridCard({
             <View style={cardStyles.iconWrap}>
               <Ionicons name={habit.icon as any} size={16} color="#FFF" />
             </View>
-            <Text style={cardStyles.habitTitle} numberOfLines={1}>{habit.title}</Text>
+            <Text testID={`habit-title-${habit.id}`} style={cardStyles.habitTitle} numberOfLines={1}>{habit.title}</Text>
           </View>
           <Animated.View style={checkStyle}>
             <Pressable onPress={handlePress} hitSlop={12} style={cardStyles.checkBtn}>
@@ -125,7 +126,7 @@ export function HabitGridCard({
             {habit.streak > 0 && (
               <View style={cardStyles.streakRow}>
                 <Ionicons name="flame" size={12} color="rgba(255,255,255,0.85)" />
-                <Text style={cardStyles.streakText}>{habit.streak}</Text>
+                <Text testID={`habit-streak-${habit.id}`} style={cardStyles.streakText}>{habit.streak}</Text>
               </View>
             )}
           </View>

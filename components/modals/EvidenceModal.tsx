@@ -83,6 +83,7 @@ export function EvidenceModal({
             Add a note or photo of what you did.
           </Text>
           <TextInput
+            testID="evidence-note-input"
             style={[modalStyles.input, { backgroundColor: colors.surfaceLight, color: colors.text }]}
             placeholder="What did you do? How did it feel?"
             placeholderTextColor={colors.textMuted}
@@ -125,10 +126,11 @@ export function EvidenceModal({
           )}
 
           <View style={modalStyles.actions}>
-            <Pressable onPress={() => { setNote(""); setImageUri(null); onSkip(); }} style={[modalStyles.skipBtn, { backgroundColor: colors.surfaceLight }]}>
+            <Pressable testID="evidence-skip-button" onPress={() => { setNote(""); setImageUri(null); onSkip(); }} style={[modalStyles.skipBtn, { backgroundColor: colors.surfaceLight }]}>
               <Text style={[modalStyles.skipText, { color: colors.textSecondary }]}>skip</Text>
             </Pressable>
             <Pressable
+              testID="evidence-submit-button"
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 onSubmit(note, imageUri || undefined);

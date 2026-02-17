@@ -38,6 +38,7 @@ export function IdentityStep({
         {IDENTITY_AREAS.map((area) => (
           <Pressable
             key={area.id}
+            testID={`builder-identity-${area.id}`}
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
               setIdentityAreaId(area.id);

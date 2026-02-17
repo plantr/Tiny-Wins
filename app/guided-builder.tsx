@@ -169,12 +169,13 @@ export default function GuidedBuilderScreen() {
       >
         <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
           <Pressable
+            testID="builder-back-button"
             onPress={handleBack}
             style={[styles.headerButton, { backgroundColor: colors.surface }]}
           >
             <Feather name={step === 0 ? "x" : "arrow-left"} size={22} color={colors.text} />
           </Pressable>
-          <View style={styles.progressContainer}>
+          <View testID="builder-progress" style={styles.progressContainer}>
             <View style={[styles.progressTrack, { backgroundColor: colors.surfaceLight }]}>
               <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: colors.accent }]} />
             </View>
@@ -199,6 +200,7 @@ export default function GuidedBuilderScreen() {
         <View style={[styles.footer, { paddingBottom: (Platform.OS === "web" ? 34 : insets.bottom) + 12, backgroundColor: colors.background }]}>
           {step === STEPS.length - 1 ? (
             <Pressable
+              testID="builder-create-button"
               onPress={handleCreate}
               style={({ pressed }) => [styles.nextBtn, { opacity: pressed ? 0.85 : 1 }]}
             >
@@ -213,6 +215,7 @@ export default function GuidedBuilderScreen() {
             </Pressable>
           ) : (
             <Pressable
+              testID="builder-next-button"
               onPress={handleNext}
               disabled={!canProceed()}
               style={({ pressed }) => [styles.nextBtn, { opacity: canProceed() ? (pressed ? 0.85 : 1) : 0.4 }]}

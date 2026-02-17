@@ -99,6 +99,7 @@ export function HabitStackView({
             </View>
           ) : null}
           <Pressable
+            testID={`habit-stack-${habit.id}`}
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
               router.push({ pathname: "/habit/[id]", params: { id: habit.id } });

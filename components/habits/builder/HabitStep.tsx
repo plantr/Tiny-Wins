@@ -60,6 +60,7 @@ export function HabitStep({
       <Text style={[styles.fieldLabel, { color: colors.textSecondary }]}>habit name</Text>
       <View style={[styles.inputWrap, { backgroundColor: colors.surfaceLight }, inputBorder("title")]}>
         <TextInput
+          testID="builder-habit-title-input"
           style={[styles.textInput, { color: colors.text }]}
           placeholder="e.g. Read, Meditate, Run..."
           placeholderTextColor={colors.textMuted}
@@ -142,6 +143,7 @@ export function HabitStep({
         </Pressable>
         <View style={styles.targetCenter}>
           <TextInput
+            testID="builder-habit-goal-input"
             style={[styles.targetInput, { color: colors.text }]}
             value={goal}
             onChangeText={(t) => setGoal(t.replace(/[^0-9]/g, ""))}

@@ -44,6 +44,7 @@ export function VersionsStep({
       </Text>
       <View style={[styles.inputWrap, { backgroundColor: colors.surfaceLight }, inputBorder("twoMin")]}>
         <TextInput
+          testID="builder-two-min-input"
           style={[styles.textInput, { color: colors.text }]}
           placeholder="e.g. Put on running shoes"
           placeholderTextColor={colors.textMuted}

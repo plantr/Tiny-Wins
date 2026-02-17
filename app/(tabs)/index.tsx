@@ -109,10 +109,11 @@ export default function TodayScreen() {
         <View style={[styles.header, { paddingTop: insets.top + 16 }]}>
           <View>
             <Text style={[styles.dateLabel, { color: colors.textMuted }]}>{monthYear}</Text>
-            <Text style={[styles.title, { color: colors.text }]}>daily activity</Text>
+            <Text testID="today-screen-title" style={[styles.title, { color: colors.text }]}>daily activity</Text>
           </View>
           <View style={styles.headerButtons}>
             <Pressable
+              testID="today-add-habit-button"
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 if (!canCreateHabit(habits.length)) {
@@ -170,7 +171,7 @@ export default function TodayScreen() {
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>your habits</Text>
+            <Text testID="today-habits-section" style={[styles.sectionTitle, { color: colors.text }]}>your habits</Text>
             {habits.length > 0 && (
               <View style={[styles.viewToggle, { backgroundColor: colors.surface }]}>
                 <Pressable

@@ -21,8 +21,9 @@ export function AddHabitChoiceModal({
       <Pressable style={choiceStyles.overlay} onPress={onClose}>
         <Pressable style={[choiceStyles.sheet, { backgroundColor: colors.surface }]} onPress={(e) => e?.stopPropagation?.()}>
           <View style={choiceStyles.handle} />
-          <Text style={[choiceStyles.title, { color: colors.text }]}>create a habit</Text>
+          <Text testID="choice-modal-title" style={[choiceStyles.title, { color: colors.text }]}>create a habit</Text>
           <Pressable
+            testID="choice-quick-add"
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
               onClose();
@@ -45,6 +46,7 @@ export function AddHabitChoiceModal({
             <Feather name="chevron-right" size={18} color={colors.textMuted} />
           </Pressable>
           <Pressable
+            testID="choice-guided-builder"
             onPress={() => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
               onClose();

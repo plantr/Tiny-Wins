@@ -53,7 +53,7 @@ export function SummaryStep({
           <View style={styles.iconWrap}>
             <Ionicons name={icon as any} size={24} color={selectedColor.color} />
           </View>
-          <Text style={styles.titleText}>{title || "Your Habit"}</Text>
+          <Text testID="builder-summary-title" style={styles.titleText}>{title || "Your Habit"}</Text>
         </View>
       </View>
 
