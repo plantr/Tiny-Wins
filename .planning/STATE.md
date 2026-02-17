@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Users can reliably track their daily habits and see their progress -- the core tracking loop (complete habit -> see streak -> feel momentum) must always work.
-**Current focus:** Phase 4: Integration Tests and Quality Gates
+**Current focus:** Phase 5: E2E Testing with Maestro
 
 ## Current Position
 
-Phase: 4 of 5 (Integration Tests and Quality Gates)
-Plan: 4 of 4 in current phase
-Status: Complete
-Last activity: 2026-02-16 -- Completed 04-04-PLAN.md (Coverage Gap Closure)
+Phase: 5 of 5 (E2E Testing with Maestro)
+Plan: 1 of 4 in current phase
+Status: In Progress
+Last activity: 2026-02-17 -- Completed 05-01-PLAN.md (E2E Infrastructure Setup)
 
-Progress: [###################] 100%
+Progress: [####               ] 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 5 minutes
-- Total execution time: 1.27 hours
+- Total execution time: 1.34 hours
 
 **By Phase:**
 
@@ -56,6 +56,7 @@ Progress: [###################] 100%
 | 04-integration-tests-quality-gates | 02 | 5 | 2 | 3 |
 | 04-integration-tests-quality-gates | 03 | 3 | 1 | 1 |
 | 04-integration-tests-quality-gates | 04 | 2 | 2 | 3 |
+| 05-e2e-testing-maestro | 01 | 4 | 2 | 14 |
 
 ## Accumulated Context
 
@@ -110,6 +111,11 @@ Recent decisions affecting current work:
 - [Phase 04-03]: Keep global thresholds conservative (2-3%) due to Jest's weighted average calculation across all collectCoverageFrom files
 - [Phase 04-04]: Remove dead useCallback functions (persistHabits, persistLogs, persistReviews) that were never called - all persistence is inline
 - [Phase 04-04]: Test hook guards using raw RNTL render to bypass custom wrapper providers (allows testing error branches)
+- [Phase 05-01]: Use sqlite3 CLI (built-in macOS) for AsyncStorage seeding — avoids new npm dependency (no better-sqlite3 needed)
+- [Phase 05-01]: testID naming convention: {screen}-{element}-{qualifier} kebab-case for all Maestro-selectable elements
+- [Phase 05-01]: builder-create-button (last step) and builder-next-button (intermediate steps) are separate testIDs on same position — semantic clarity for flows
+- [Phase 05-01]: Android seeding is TODO — Phase 5 targets iOS simulator only
+- [Phase 05-01]: New Architecture + Maestro compatibility confirmed (research finding: officially compatible as of Nov 2025)
 
 ### Pending Todos
 
@@ -119,10 +125,9 @@ None yet.
 
 - React Compiler + Jest interaction may surface edge cases -- validate during Phase 1 smoke testing
 - Context provider nesting order may have implicit dependencies -- validate in custom render wrapper
-- New Architecture + Maestro compatibility needs spike before Phase 5 flows
 
 ## Session Continuity
 
-Last session: 2026-02-16
-Stopped at: Completed 04-04-PLAN.md (Coverage Gap Closure)
+Last session: 2026-02-17
+Stopped at: Completed 05-01-PLAN.md (E2E Infrastructure Setup)
 Resume file: None
