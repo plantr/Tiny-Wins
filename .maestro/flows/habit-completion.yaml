@@ -1,0 +1,38 @@
+appId: com.myapp
+---
+# Habit Completion Flow
+# Tests tapping a pre-seeded habit card to complete it.
+# Pre-condition: Seed data has "Morning meditation" (id: e2e-habit-1) with streak 3.
+
+- launchApp
+
+# Wait for Today screen to load
+- assertVisible:
+    id: "today-screen-title"
+
+- takeScreenshot: habit-completion-01-before
+
+# Tap the pre-seeded habit card
+- tapOn:
+    id: "habit-card-e2e-habit-1"
+
+# Wait for evidence modal to appear
+- assertVisible:
+    id: "evidence-skip-button"
+
+- takeScreenshot: habit-completion-02-evidence-modal
+
+# Skip evidence (tap skip button)
+- tapOn:
+    id: "evidence-skip-button"
+    retryTapIfNoChange: false
+
+# Wait for completion animation to settle
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Verify the habit card still visible (completed state)
+- assertVisible:
+    id: "habit-card-e2e-habit-1"
+
+- takeScreenshot: habit-completion-03-completed

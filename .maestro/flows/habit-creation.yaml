@@ -1,0 +1,127 @@
+appId: com.myapp
+---
+# Habit Creation Flow
+# Tests the guided builder from start to seeing the new habit on Today screen.
+# Pre-condition: Seed data has been written (2 habits + onboarding completed).
+
+- launchApp
+
+# Wait for Today screen to load
+- assertVisible:
+    id: "today-screen-title"
+
+- takeScreenshot: habit-creation-01-today-loaded
+
+# Tap add habit button
+- tapOn:
+    id: "today-add-habit-button"
+
+# Wait for choice modal
+- assertVisible:
+    id: "choice-modal-title"
+
+# Tap guided builder option
+- tapOn:
+    id: "choice-guided-builder"
+
+# Wait for identity step (builder loaded)
+- assertVisible:
+    id: "builder-identity-athlete"
+
+- takeScreenshot: habit-creation-02-identity-step
+
+# Tap first identity area (athlete)
+- tapOn:
+    id: "builder-identity-athlete"
+
+# Tap Next to advance to habit step
+- tapOn:
+    id: "builder-next-button"
+    retryTapIfNoChange: false
+
+# Wait for habit step
+- assertVisible:
+    id: "builder-habit-title-input"
+
+# Tap title input and type habit name
+- tapOn:
+    id: "builder-habit-title-input"
+- inputText: "E2E Test Habit"
+
+# Dismiss keyboard
+- tapOn:
+    point: "50%,5%"
+
+# Tap Next to advance to intention step
+- tapOn:
+    id: "builder-next-button"
+    retryTapIfNoChange: false
+
+# Wait for intention step
+- assertVisible:
+    id: "builder-intention-behaviour"
+
+# Fill behaviour input
+- tapOn:
+    id: "builder-intention-behaviour"
+- inputText: "I will practice"
+
+# Dismiss keyboard
+- tapOn:
+    point: "50%,5%"
+
+# Fill location input
+- tapOn:
+    id: "builder-intention-location"
+- inputText: "at home"
+
+# Dismiss keyboard
+- tapOn:
+    point: "50%,5%"
+
+# Tap Next to advance to stacking step
+- tapOn:
+    id: "builder-next-button"
+    retryTapIfNoChange: false
+
+# On Stacking step — tap Next (optional step, skip)
+- tapOn:
+    id: "builder-next-button"
+    retryTapIfNoChange: false
+
+# Wait for versions step
+- assertVisible:
+    id: "builder-two-min-input"
+
+# Fill two-minute version
+- tapOn:
+    id: "builder-two-min-input"
+- inputText: "Do it for 2 minutes"
+
+# Dismiss keyboard
+- tapOn:
+    point: "50%,5%"
+
+# Tap Next to advance to summary step
+- tapOn:
+    id: "builder-next-button"
+    retryTapIfNoChange: false
+
+# Wait for summary step and verify habit title is shown
+- assertVisible: "E2E Test Habit"
+
+- takeScreenshot: habit-creation-03-summary
+
+# Tap create button
+- tapOn:
+    id: "builder-create-button"
+    retryTapIfNoChange: false
+
+# Wait for Today screen to return
+- assertVisible:
+    id: "today-screen-title"
+
+# Verify the new habit appears on Today screen
+- assertVisible: "E2E Test Habit"
+
+- takeScreenshot: habit-creation-04-habit-created

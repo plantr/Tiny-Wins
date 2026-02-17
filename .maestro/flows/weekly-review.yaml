@@ -1,0 +1,86 @@
+appId: com.myapp
+---
+# Weekly Review Flow
+# Tests writing a weekly review: navigating to Review tab, filling form, submitting.
+# Pre-condition: Seed data has habits and logs but no reviews (reviews array is empty).
+
+- launchApp
+
+# Wait for Today screen to load
+- assertVisible:
+    id: "today-screen-title"
+
+# Navigate to Review tab
+- tapOn: "Review"
+
+# Wait for review screen to load
+- assertVisible:
+    id: "review-write-button"
+
+- takeScreenshot: weekly-review-01-review-screen
+
+# Verify scorecard shows data
+- assertVisible:
+    id: "review-scorecard"
+
+# Tap write review button
+- tapOn:
+    id: "review-write-button"
+    retryTapIfNoChange: false
+
+# Wait for review modal to open
+- assertVisible:
+    id: "review-modal-title"
+
+- takeScreenshot: weekly-review-02-review-modal
+
+# Fill "what worked" input
+- tapOn:
+    id: "review-what-worked-input"
+- inputText: "Meditation was consistent"
+
+# Dismiss keyboard
+- tapOn:
+    point: "50%,5%"
+
+# Fill "what didn't work" input
+- tapOn:
+    id: "review-what-didnt-input"
+- inputText: "Skipped reading twice"
+
+# Dismiss keyboard
+- tapOn:
+    point: "50%,5%"
+
+# Scroll down to see law options if needed
+- scrollUntilVisible:
+    element:
+      id: "review-law-obvious"
+    direction: DOWN
+
+# Select a law
+- tapOn:
+    id: "review-law-obvious"
+
+- takeScreenshot: weekly-review-03-filled
+
+# Scroll to submit button
+- scrollUntilVisible:
+    element:
+      id: "review-submit-button"
+    direction: DOWN
+
+# Submit the review
+- tapOn:
+    id: "review-submit-button"
+    retryTapIfNoChange: false
+
+# Wait for modal to close and review to save
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Verify the "write weekly review" button is gone (review already submitted)
+- assertNotVisible:
+    id: "review-write-button"
+
+- takeScreenshot: weekly-review-04-submitted
