@@ -4,7 +4,9 @@ appId: com.myapp
 # Tests the guided builder from start to seeing the new habit on Today screen.
 # Pre-condition: Seed data has been written (2 habits + onboarding completed).
 
-- launchApp
+- launchApp:
+    clearState: false
+- openLink: "exp+tiny-wins://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081"
 
 # Wait for Today screen to load
 - assertVisible:

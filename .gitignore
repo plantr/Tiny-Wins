@@ -5,5 +5,17 @@
 expo-env.d.ts
 # @end expo-cli
 
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+
 # Test coverage
 coverage/

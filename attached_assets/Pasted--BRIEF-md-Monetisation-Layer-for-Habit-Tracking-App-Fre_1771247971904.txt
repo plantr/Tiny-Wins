@@ -1,0 +1,70 @@
+# BRIEF.md — Monetisation Layer for Habit Tracking App (Freemium → Subscription + Optional Lifetime)
+
+## Monetisation Model (Product Strategy)
+
+### Free tier (must remain “useful”)
+- Create/track up to **10 habits**  ✅ (HARD GATE CHANGED)
+- Basic daily reminders (time-based only; limited)
+- Basic streak/calendar view
+- Local-only data (or limited sync)
+
+### Premium tier
+- Unlimited habits
+- Advanced reminders (multiple schedules, habit stacking prompts, smart follow-ups)
+- Cross-device sync (cloud)
+- Integrations (Health/Calendar) — optional depending on MVP
+- Weekly review + scorecard insights
+- Templates/programs (starter library)
+
+### Lifetime (optional)
+- One-time purchase that grants Premium entitlement
+- Exclude/limit any high-variable-cost features (e.g., AI coaching credits) if added later
+
+
+## Core Requirements
+
+### 1) Paywall placement (conversion without harming retention)
+Trigger paywalls at:
+- **“Create 11th habit”** (hard gate) ✅ (WAS “Create 4th habit”)
+- Enabling a Premium feature (hard gate)
+- Weekly review insight depth (soft gate)
+- Settings → Upgrade (always available)
+
+Paywall rules:
+- Default highlight Annual plan
+- Include “Restore purchases” always
+- Allow closing paywall (except on hard-gated actions where user can back out)
+
+
+## Functional Spec
+
+### Feature gating matrix
+Free:
+- Max **10** active habits ✅
+- 1 reminder per habit/day (time-only)
+- Local-only or limited sync (define clearly)
+
+Premium:
+- Unlimited habits
+- Multiple reminders + smart reminders
+- Cloud sync
+- Advanced analytics (consistency rate, identity evidence log)
+- Templates/programs
+
+Lifetime:
+- Same as Premium (except any variable-cost add-ons later)
+
+
+### Key user flows
+
+2) Hard gate flow (**11th habit**)
+- User attempts create habit #11 → show paywall → if purchased unlock + continue creation; if not purchased return to prior screen
+- Ensure habit count is computed consistently (e.g., “active habits” vs “all habits incl. archived” — pick one and document it)
+
+
+## Acceptance Criteria (MVP)
+- Free users can use the app daily without hitting a paywall unless they exceed free limits (**>10 habits**) or attempt premium features.
+- Paywall purchase succeeds and unlocks features immediately (≤ 5 seconds after completion).
+- Entitlement state is correct across reinstall, new device, logout/login, restore purchases.
+- Webhook events update server entitlement and client reflects changes on next refresh.
+- Analytics events are emitted for the full funnel, including `premium_feature_blocked` when attempting habit #11.

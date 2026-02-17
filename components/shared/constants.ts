@@ -35,3 +35,5 @@ export const COLOR_OPTIONS: ColorOption[] = [
 ];
 
 export const UNIT_OPTIONS = ["times", "minutes", "hours", "glasses", "pages", "steps", "visits"];
+
+export const FREQUENCY_OPTIONS = ["Daily", "Weekdays", "Weekends", "3x per week", "Custom"];

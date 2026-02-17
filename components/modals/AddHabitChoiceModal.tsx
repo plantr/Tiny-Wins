@@ -18,8 +18,8 @@ export function AddHabitChoiceModal({
 
   return (
     <Modal visible={visible} transparent animationType="slide">
-      <Pressable style={choiceStyles.overlay} onPress={onClose}>
-        <Pressable style={[choiceStyles.sheet, { backgroundColor: colors.surface }]} onPress={(e) => e?.stopPropagation?.()}>
+      <Pressable accessible={false} style={choiceStyles.overlay} onPress={onClose}>
+        <Pressable accessible={false} style={[choiceStyles.sheet, { backgroundColor: colors.surface }]} onPress={(e) => e?.stopPropagation?.()}>
           <View style={choiceStyles.handle} />
           <Text testID="choice-modal-title" style={[choiceStyles.title, { color: colors.text }]}>create a habit</Text>
           <Pressable

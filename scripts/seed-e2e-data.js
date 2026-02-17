@@ -2,8 +2,12 @@
 /**
  * E2E Data Seeder for Tiny Wins
  *
- * Writes test fixture data directly to the iOS simulator's AsyncStorage SQLite
- * database so Maestro flows start from a known, deterministic state.
+ * Writes test fixture data directly to the iOS simulator's AsyncStorage
+ * manifest so Maestro flows start from a known, deterministic state.
+ *
+ * AsyncStorage v2.x uses a JSON manifest file (not SQLite). Values under
+ * 1024 bytes are stored inline; larger values go to separate files named
+ * by the MD5 hash of the key.
  *
  * Usage:
  *   node scripts/seed-e2e-data.js [platform]
@@ -13,7 +17,6 @@
  * Prerequisites (iOS):
  *   - Xcode + Command Line Tools installed
  *   - iOS Simulator booted with app installed
- *   - sqlite3 CLI available (built-in on macOS)
  *
  * AsyncStorage keys seeded:
  *   - tinywins_habits        (matches lib/habits-context.tsx HABITS_KEY)
@@ -24,18 +27,17 @@
  *   - onboarding_completed   (skip onboarding)
  *   - app_theme_mode         (consistent dark theme for screenshots)
  *   - app_week_start_day     (week starts Monday)
- *
- * TODO: Android support — use adb to push SQLite file to emulator's
- *   /data/data/com.myapp/databases/RKStorage location.
  */
 
 "use strict";
 
 const { execSync } = require("child_process");
+const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs");
 
 const APP_BUNDLE_ID = "com.myapp";
+const INLINE_THRESHOLD = 1024; // bytes — matches RCTInlineValueThreshold
 
 // ---------------------------------------------------------------------------
 // CLI
@@ -53,7 +55,7 @@ Options:
   --help      Show this help message
 
 This script writes E2E test fixture data to the running iOS simulator's
-AsyncStorage database so Maestro flows start from a clean, known state.
+AsyncStorage manifest so Maestro flows start from a clean, known state.
   `);
   process.exit(0);
 }
@@ -145,7 +147,7 @@ const seedData = {
 };
 
 // ---------------------------------------------------------------------------
-// iOS seeding via sqlite3 CLI
+// iOS seeding via AsyncStorage v2.x manifest files
 // ---------------------------------------------------------------------------
 
 function seedIOS() {
@@ -171,50 +173,46 @@ function seedIOS() {
 
   console.log(`App container: ${appContainer}`);
 
-  // Step 2: Locate the AsyncStorage SQLite database
-  // Expo's AsyncStorage on iOS uses catalystLocalStorage table in a SQLite DB
-  // at <appContainer>/Documents/RCTAsyncLocalStorage_V1
-  const dbDir = path.join(appContainer, "Documents", "RCTAsyncLocalStorage_V1");
-  const dbPath = path.join(dbDir, "RCTAsyncLocalStorage.db");
+  // Step 2: AsyncStorage v2.x stores data as a JSON manifest file under
+  // Library/Application Support/<bundleID>/RCTAsyncLocalStorage_V1/manifest.json
+  // Values >= 1024 bytes are stored as separate files named by MD5(key).
+  const storageDir = path.join(
+    appContainer,
+    "Library",
+    "Application Support",
+    APP_BUNDLE_ID,
+    "RCTAsyncLocalStorage_V1"
+  );
 
-  // Ensure the directory exists (app may not have created it yet on first install)
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
-    console.log(`Created AsyncStorage directory: ${dbDir}`);
-  }
+  fs.mkdirSync(storageDir, { recursive: true });
+  console.log(`Storage dir: ${storageDir}`);
 
-  // Step 3: Create the table if it doesn't exist (sqlite3 will create the DB file)
-  try {
-    execSync(
-      `sqlite3 "${dbPath}" "CREATE TABLE IF NOT EXISTS catalystLocalStorage (key TEXT PRIMARY KEY, value TEXT NOT NULL);"`,
-      { encoding: "utf8" }
-    );
-  } catch (err) {
-    console.error(`Error: Could not create/access SQLite database at ${dbPath}`);
-    console.error(err.message);
-    process.exit(1);
-  }
+  // Step 3: Build the manifest and write large-value files
+  const manifest = {};
+  let fileCount = 0;
 
-  // Step 4: Upsert each key-value pair
-  let insertedCount = 0;
   for (const [key, value] of Object.entries(seedData)) {
-    // Escape single quotes in value for SQLite
-    const escapedValue = value.replace(/'/g, "''");
-    const escapedKey = key.replace(/'/g, "''");
-    try {
-      execSync(
-        `sqlite3 "${dbPath}" "INSERT OR REPLACE INTO catalystLocalStorage (key, value) VALUES ('${escapedKey}', '${escapedValue}');"`,
-        { encoding: "utf8" }
-      );
-      console.log(`  [OK] ${key}`);
-      insertedCount++;
-    } catch (err) {
-      console.error(`  [FAIL] ${key}: ${err.message}`);
-      process.exit(1);
+    if (Buffer.byteLength(value, "utf8") >= INLINE_THRESHOLD) {
+      // Large value — write to separate file, use null in manifest
+      const hash = crypto.createHash("md5").update(key).digest("hex");
+      const filePath = path.join(storageDir, hash);
+      fs.writeFileSync(filePath, value, "utf8");
+      manifest[key] = null;
+      console.log(`  [OK] ${key} (file: ${hash}, ${Buffer.byteLength(value)} bytes)`);
+      fileCount++;
+    } else {
+      // Small value — store inline in manifest
+      manifest[key] = value;
+      console.log(`  [OK] ${key} (inline, ${Buffer.byteLength(value)} bytes)`);
     }
   }
 
-  console.log(`\nSeeded ${insertedCount} keys into ${dbPath}`);
+  // Step 4: Write the manifest
+  const manifestPath = path.join(storageDir, "manifest.json");
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest), "utf8");
+
+  console.log(`\nSeeded ${Object.keys(seedData).length} keys (${fileCount} as files)`);
+  console.log(`Manifest: ${manifestPath}`);
   console.log("Done. You can now run Maestro flows.");
 }
 

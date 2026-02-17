@@ -20,7 +20,9 @@
     "test:ci": "jest --ci --coverage --maxWorkers=2",
     "test:e2e:seed": "node scripts/seed-e2e-data.js ios",
     "test:e2e:run": "maestro test .maestro/",
-    "test:e2e": "bash scripts/run-e2e.sh"
+    "test:e2e": "bash scripts/run-e2e.sh",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.2",
@@ -34,6 +36,7 @@
     "expo": "~54.0.27",
     "expo-blur": "~15.0.8",
     "expo-constants": "~18.0.11",
+    "expo-dev-client": "~6.0.20",
     "expo-file-system": "^19.0.21",
     "expo-font": "~14.0.10",
     "expo-glass-effect": "~0.1.4",

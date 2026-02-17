@@ -1,0 +1,192 @@
+# BRIEF.md — Atomic Habits Companion App
+
+Product name (working): Atomic Companion
+
+## One-liner
+A habit-building app that operationalises James Clear’s *Atomic Habits* framework with identity-first habit design, small-step execution, and a system for making habits obvious, attractive, easy, and satisfying.
+
+## Source Framework (book-based)
+This app is explicitly based on the practical mechanisms described in *Atomic Habits* (James Clear, 2018):
+- Identity-based habits (become the kind of person who…)
+- The habit loop: cue → craving → response → reward
+- The 4 Laws of Behaviour Change:
+  - Make it Obvious
+  - Make it Attractive
+  - Make it Easy
+  - Make it Satisfying
+- Supporting tactics: habit stacking, implementation intentions, environment design, the 2-minute rule, tracking & reflection.
+
+## Problem
+Most habit apps track streaks but don’t help users design habits that actually stick. People fail because the habit is vague, too hard, poorly cued, or not rewarding—then motivation collapses.
+
+## Goals
+1. Help users define habits as systems, not goals.
+2. Make identity the “north star” and reinforce it through evidence.
+3. Reduce friction to start (2-minute rule) and scale gradually.
+4. Turn habit design into a guided, repeatable workflow.
+5. Provide feedback loops (review, scoring, environment adjustments) that keep habits resilient.
+
+## Non-goals (initially)
+- Full therapy/wellbeing clinical claims or medical behaviour change programs.
+- Social network / influencer feed.
+- Complex project management and long-form journaling (keep it tight).
+
+## Target users / Personas
+- Busy professionals: want low-effort consistency and clarity.
+- Self-improvers: already read the book, want the system implemented.
+- Beginners: need guided habit design and gentle guardrails.
+
+## Core user journey
+1. Onboard: choose an identity theme (e.g., “I’m a fit person”, “I’m a consistent creator”).
+2. Create one habit using a guided builder (implementation intention + habit stacking + 2-minute starter).
+3. Configure cues (time/location/after X) and environment prompts.
+4. Daily check-in: minimal, fast completion + optional evidence.
+5. Weekly review: score what worked, adjust cues/friction/rewards, scale difficulty.
+
+## Core features (MVP)
+
+### 1) Identity-first onboarding
+- Identity statement builder:
+  - “I am the kind of person who ______.”
+  - “Evidence I want to build is ______.”
+- Optional identity “badge” or mantra displayed on home screen.
+- Choose 1–3 identity areas (Health / Wealth / Relationships / Learning / Creativity).
+
+### 2) Habit Builder (guided, opinionated)
+Create a habit with:
+- Clear habit name and intent
+- Implementation intention:
+  - “I will [BEHAVIOUR] at [TIME] in [LOCATION].”
+- Habit stacking:
+  - “After [CURRENT HABIT], I will [NEW HABIT].”
+- 2-minute version:
+  - Default starter habit: smallest viable action
+- Scaling plan:
+  - Phase 1: 2-minute version
+  - Phase 2: standard version
+  - Phase 3: stretch version (optional)
+
+### 3) The 4 Laws mapped to product controls
+Make it Obvious:
+- Prominent cues: schedule, widgets, lock-screen prompts (platform dependent)
+- “Environment checklist” per habit (e.g., set shoes by door)
+- Visual trigger support (photo prompt / checklist)
+
+Make it Attractive:
+- Temptation bundling suggestions:
+  - “Only allow [treat] while doing [habit]”
+- Pair habits with enjoyable context (music/podcast prompt)
+- “Why this matters” card tied to identity
+
+Make it Easy:
+- 2-minute mode default
+- Reduce steps: one-tap complete, quick timer
+- “Friction toggle”:
+  - Add friction to bad habits (blocklists optional later)
+  - Remove friction from good habits (prep reminders, pre-filled checklists)
+
+Make it Satisfying:
+- Immediate reward options:
+  - “Completion celebration” (subtle)
+  - Earn points toward chosen rewards (user-defined)
+- Streaks are secondary; primary is “identity evidence” and “consistency rate”
+- Visual progress: calendar heatmap and “evidence log”
+
+### 4) Daily check-in (fast)
+- Today view: top 1–5 habits, sorted by cue time
+- One-tap completion
+- Optional “evidence” capture:
+  - quick note, photo, or 5-second reflection (“What did this prove about me?”)
+- Missed habit flow:
+  - “What got in the way?” (pre-set reasons)
+  - Suggest a design fix mapped to the 4 laws
+
+### 5) Habit Scorecard + Weekly review
+- Weekly prompt:
+  - What worked? What didn’t? Which law failed (obvious/attractive/easy/satisfying)?
+- Auto-suggest adjustments:
+  - change cue time, simplify, add environment trigger, add reward
+- “Never miss twice” guardrail:
+  - If missed once, next day prompts a smaller 2-minute version
+
+## “Nice-to-have” (post-MVP)
+- Templates by domain (gym, writing, saving money)
+- AI habit coach (optional): converts goals into identity + habit plan; proposes 4-law fixes
+- Integrations: Apple Health/Google Fit, calendar, reminders
+- Social accountability: small private groups (not a feed)
+- Bad-habit breaking mode (inverse 4 laws): invisible, unattractive, hard, unsatisfying
+
+## Key screens (information architecture)
+- Home / Today (habits + cues + one tap)
+- Habit detail (identity link, cue, 2-min version, scaling, environment checklist)
+- Add habit (wizard)
+- Evidence log (identity proof timeline)
+- Review (weekly scorecard + adjustments)
+- Settings (notifications, privacy, data export)
+
+## Data model (conceptual)
+User
+- id, timezone, preferences
+
+IdentityTheme
+- id, title, statement, values (optional)
+
+Habit
+- id, title, identity_theme_id
+- implementation_intention: behaviour, time, location
+- stack_anchor (text)
+- versions: two_min, standard, stretch
+- schedule (days/times)
+- cue_type (time / after-habit / location)
+- environment_actions (checklist)
+- reward_config (points/reward)
+
+HabitLog
+- id, habit_id, date, status (done/missed/partial)
+- evidence_note, evidence_media_url (optional)
+- friction_reason (optional)
+
+ReviewLog
+- week_start, ratings, notes, chosen_adjustments
+
+## Notifications (guardrails)
+- Respect notification fatigue:
+  - default: 1 reminder per habit window + gentle follow-up
+- Smart reminders:
+  - only remind for scheduled habits not completed
+  - missed yesterday → today suggests 2-minute version
+
+## Metrics (success measures)
+- Activation: % who create first habit and complete within 24 hours
+- Retention: 7-day and 30-day active usage
+- Consistency rate per habit (completions / scheduled occurrences)
+- Review participation rate (weekly)
+- “Design iteration” rate (users adjusting cues/friction/rewards)
+
+## Privacy & safety
+- No medical claims; habit coaching is general self-improvement.
+- Local-first preference where possible; encrypted storage for sensitive notes.
+- Explicit permissions for photos/health integrations.
+- Data export + delete account.
+
+## Suggested tech (adjustable)
+- Mobile: React Native (Expo) or native (Swift/Kotlin) depending on team
+- Web: Next.js (TypeScript) on Vercel
+- Backend: Supabase (Postgres, Auth, Storage)
+- UI: Tailwind (web) + a minimal component system
+- Analytics: privacy-conscious event tracking (opt-in where required)
+
+## MVP scope (4–8 weeks for a small team, depending on platform)
+- Onboarding + identity statement
+- Habit builder (implementation intention, stacking, 2-minute)
+- Today screen + logging
+- Weekly review + basic suggestions
+- Basic notifications
+- Simple progress views (calendar/consistency)
+
+## Acceptance criteria (MVP)
+- User can create a habit with identity link + cue + 2-minute version in < 2 minutes.
+- Completing a habit takes < 3 seconds from Home.
+- Weekly review produces at least 1 actionable adjustment per week.
+- User can view “identity evidence” (logs/notes/photos) as a timeline.
+- Works offline for daily check-ins; syncs when online.

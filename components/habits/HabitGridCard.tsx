@@ -97,15 +97,6 @@ export function HabitGridCard({
             </View>
             <Text testID={`habit-title-${habit.id}`} style={cardStyles.habitTitle} numberOfLines={1}>{habit.title}</Text>
           </View>
-          <Animated.View style={checkStyle}>
-            <Pressable onPress={handlePress} hitSlop={12} style={cardStyles.checkBtn}>
-              {isCompleted ? (
-                <Ionicons name="checkmark-circle" size={22} color="#FFF" />
-              ) : (
-                <Ionicons name="ellipse-outline" size={22} color="rgba(255,255,255,0.5)" />
-              )}
-            </Pressable>
-          </Animated.View>
         </View>
 
         <View style={cardStyles.bottomSection}>
@@ -144,6 +135,17 @@ export function HabitGridCard({
           </View>
         )}
       </Pressable>
+
+      {/* Check button positioned as sibling to avoid nested Pressable touch conflicts */}
+      <Animated.View style={[checkStyle, cardStyles.checkOverlay]}>
+        <Pressable testID={`habit-check-${habit.id}`} onPress={handlePress} hitSlop={12} style={cardStyles.checkBtn}>
+          {isCompleted ? (
+            <Ionicons name="checkmark-circle" size={22} color="#FFF" />
+          ) : (
+            <Ionicons name="ellipse-outline" size={22} color="rgba(255,255,255,0.5)" />
+          )}
+        </Pressable>
+      </Animated.View>
     </Animated.View>
   );
 }
@@ -167,6 +169,7 @@ const cardStyles = StyleSheet.create({
     fontFamily: "Inter_600SemiBold", fontSize: 14, color: "#FFF", flex: 1,
   },
   checkBtn: { padding: 2 },
+  checkOverlay: { position: "absolute", top: 14, right: 14 },
   bottomSection: { gap: 4 },
   identityTag: {
     flexDirection: "row", alignItems: "center", gap: 4,
